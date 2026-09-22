@@ -36,7 +36,8 @@ loss.backward()
 # your code here
 # adv_x should be computed from x according to the fgsm-style perturbation such that the new class of xBar is the target class t above
 # hint: you can compute the gradient of the loss w.r.t to x as x.grad
-adv_x = TODO
+# Targeted FGSM: minimize the loss for the target class
+adv_x = x - eps * x.grad.sign()
 
 new_class = N(adv_x).argmax(dim=1).item()
 print("New Class: ", new_class)
