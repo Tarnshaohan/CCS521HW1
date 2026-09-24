@@ -27,7 +27,7 @@ x.requires_grad_() # this is required so we can compute the gradient w.r.t x
 
 t = 1 # target class
 
-epsReal = 1.1374  #depending on your data, this might be large or small
+epsReal = 1.1372  #depending on your data, this might be large or small
 eps = epsReal - 1e-7 # small constant to offset floating-point errors
 
 
@@ -53,7 +53,10 @@ adv_x = (x - eps * x.grad.sign()).detach()
 
 new_class = N(adv_x).argmax(dim=1).item() #  checks if the new prediction matches target 0
 
+linf_dist = torch.norm((x - adv_x), p=float("inf")).item()
+
 print("New Class: ", new_class)
 
 print(torch.norm((x-adv_x),  p=float('inf')).data)
 
+print("Perturbation L_inf norm:", linf_dist)
